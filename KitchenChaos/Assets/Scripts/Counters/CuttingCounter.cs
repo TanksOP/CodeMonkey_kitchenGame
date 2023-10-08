@@ -48,23 +48,25 @@ public class CuttingCounter : BaseCounter
             if (player.HasKitchenObject())
             {
                 //player has an object
-
-                KitchenObject oldKitchenObject = null;
-                KitchenObject newKitchenObject = null;
-
-                oldKitchenObject = GetKitchenObject();                
-                newKitchenObject = player.GetKitchenObject();
-
-                ClearKitchenObject();
-                player.GetKitchenObject().SetKitchenObjectParent(this);
-                oldKitchenObject.SetKitchenObjectParent(player);
-                SetKitchenObject(newKitchenObject);
-                cuttingProgress = 0;
-                CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
-                OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+                if (HasRecipeWithInput(player.GetKitchenObject().GetKitchenObjectSO()))
                 {
-                    progressNormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgresMax
-                });
+                    KitchenObject oldKitchenObject = null;
+                    KitchenObject newKitchenObject = null;
+
+                    oldKitchenObject = GetKitchenObject();
+                    newKitchenObject = player.GetKitchenObject();
+
+                    ClearKitchenObject();
+                    player.GetKitchenObject().SetKitchenObjectParent(this);
+                    oldKitchenObject.SetKitchenObjectParent(player);
+                    SetKitchenObject(newKitchenObject);
+                    cuttingProgress = 0;
+                    CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
+                    OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+                    {
+                        progressNormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgresMax
+                    });
+                }
 
             }
             else
