@@ -30,16 +30,39 @@ public class ClearCounter : BaseCounter
             {
                 //player has an object
 
-                KitchenObject oldKitchenObject = null;
-                KitchenObject newKitchenObject = null;
+                if(player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    // player is holding a plate
+                    if (plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO()))
+                    {
+                        GetKitchenObject().DestroySelf();
+                    }                   
+                }
+                else
+                {
+                    //player is holding somthing else
+                    if(GetKitchenObject().TryGetPlate(out plateKitchenObject))
+                    {
+                        // counter has a plate
+                        if (plateKitchenObject.TryAddIngredient(player.GetKitchenObject().GetKitchenObjectSO()))
+                        {
+                            player.GetKitchenObject().DestroySelf();
+                        }
+                    }
+                    else
+                    {
+                        KitchenObject oldKitchenObject = null;
+                        KitchenObject newKitchenObject = null;
 
-                oldKitchenObject = GetKitchenObject();                
-                newKitchenObject = player.GetKitchenObject();
+                        oldKitchenObject = GetKitchenObject();
+                        newKitchenObject = player.GetKitchenObject();
 
-                ClearKitchenObject();
-                player.GetKitchenObject().SetKitchenObjectParent(this);
-                oldKitchenObject.SetKitchenObjectParent(player);
-                SetKitchenObject(newKitchenObject);
+                        ClearKitchenObject();
+                        player.GetKitchenObject().SetKitchenObjectParent(this);
+                        oldKitchenObject.SetKitchenObjectParent(player);
+                        SetKitchenObject(newKitchenObject);
+                    }
+                }               
 
             }
             else
