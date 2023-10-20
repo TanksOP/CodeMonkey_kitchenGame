@@ -3462,6 +3462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1140746602}
+  - component: {fileID: 1140746603}
   m_Layer: 5
   m_Name: GamePlayingClockUI
   m_TagString: Untagged
@@ -3491,6 +3492,19 @@ RectTransform:
   m_AnchoredPosition: {x: -106, y: -84}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1140746603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140746601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6dc7d5a02ef4a04ab399aa3df4a6eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerImage: {fileID: 205316332}
 --- !u!1001 &1142584668
 PrefabInstance:
   m_ObjectHideFlags: 0
