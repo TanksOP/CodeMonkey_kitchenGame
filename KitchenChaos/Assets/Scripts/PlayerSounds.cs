@@ -7,6 +7,11 @@ public class PlayerSounds : MonoBehaviour
 {
     public static event EventHandler OnPlayerFootstep;
 
+    public static void ResetStaticData()
+    {
+        OnPlayerFootstep = null;
+    }
+
     private Player player;
     private float footstepTimer;
     private float footstepTimerMax = 0.1f;
