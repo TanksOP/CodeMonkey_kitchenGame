@@ -2,11 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI recipesDeliverdText;
+    [SerializeField] Button mainMenuButton;
 
+
+    private void Awake()
+    {
+        mainMenuButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.MainMenuScene);
+        });
+    }
     private void Start()
     {
         KitchenGameManager.instance.OnStateChanged += KitchenGameManager_OnStateChanged;
@@ -19,6 +29,7 @@ public class GameOverUI : MonoBehaviour
         {
             Show();
             recipesDeliverdText.text = DeliveryManager.Instance.GetSuccessfulRecipeAmount().ToString();
+            mainMenuButton.Select();
         }
         else
         {
