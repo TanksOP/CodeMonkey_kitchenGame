@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI recipesDeliverdText;
     [SerializeField] Button mainMenuButton;
+    private float delayTimerMax = 1f;
+    private float delayTimer;
 
 
     private void Awake()
@@ -19,6 +22,7 @@ public class GameOverUI : MonoBehaviour
     }
     private void Start()
     {
+        delayTimer = delayTimerMax;
         KitchenGameManager.instance.OnStateChanged += KitchenGameManager_OnStateChanged;
         Hide();
     }
@@ -29,7 +33,7 @@ public class GameOverUI : MonoBehaviour
         {
             Show();
             recipesDeliverdText.text = DeliveryManager.Instance.GetSuccessfulRecipeAmount().ToString();
-            mainMenuButton.Select();
+            mainMenuButton.interactable = false;
         }
         else
         {
@@ -37,7 +41,20 @@ public class GameOverUI : MonoBehaviour
         }
     }
 
-    
+    private void Update()
+    {
+        if (KitchenGameManager.instance.IsGameOver())
+        {
+            delayTimer -= Time.deltaTime;
+            if(delayTimer <= 0)
+            {
+                mainMenuButton.Select();
+                mainMenuButton.interactable = true;
+            }
+        }
+    }
+
+
 
     private void Show()
     {
