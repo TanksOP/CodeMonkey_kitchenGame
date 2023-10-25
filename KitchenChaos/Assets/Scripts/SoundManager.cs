@@ -80,6 +80,11 @@ public class SoundManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(audioClip, position, volumeMultiplier * volume);
     }
 
+    public void PlayCountdownSound() 
+    {
+        PlaySound(audioClipsRefSO.warning, Vector3.zero);
+    }
+
     public void ChangeVolume()
     {
         volume += .1f;
